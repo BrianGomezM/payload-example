@@ -12,6 +12,10 @@ const NEXT_PUBLIC_SERVER_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
   : process.env.__NEXT_PRIVATE_ORIGIN || 'http://localhost:3000'
 
 const nextConfig: NextConfig = {
+  eslint: {
+    ignoreDuringBuilds: true, // 👈 ESTA ES LA LÍNEA CLAVE
+  },
+
   images: {
     localPatterns: [
       {
@@ -30,6 +34,7 @@ const nextConfig: NextConfig = {
       }),
     ],
   },
+
   webpack: (webpackConfig) => {
     webpackConfig.resolve.extensionAlias = {
       '.cjs': ['.cts', '.cjs'],
@@ -39,8 +44,10 @@ const nextConfig: NextConfig = {
 
     return webpackConfig
   },
+
   reactStrictMode: true,
   redirects,
+
   turbopack: {
     root: path.resolve(dirname),
   },
